@@ -112,7 +112,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
     if flag > 0:
         if flag == 1:
-            outstring = 'D_w_x_y_z' + sep + sep
+            outstring = 'D_w_x_y_z' + sep + '  ID' + sep
             for col in range(1, 50):
                 outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
@@ -120,7 +120,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
         for line in range(linenumber):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>2d}".format(line+1) + sep
+            outstring = outstring + "{0:>4d}".format(line+1) + sep
             for col in range( 49):
                 outstring = outstring + "{0:>2d}".format(left_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
@@ -135,7 +135,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
         for line in range(linenumber):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>2d}".format(line+1) + sep
+            outstring = outstring + "{0:>4d}".format(line+1) + sep
             for col in range( 49):
                 outstring = outstring + "{0:>2d}".format(right_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
@@ -144,7 +144,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
     if flag > 0:
 
         if flag == 1:
-            outstring = 'D_w_x_y_z' + sep + sep
+            outstring = 'D_w_x_y_z' + sep + '  ID'  + sep
             for col in range(1, 50):
                 outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
@@ -152,7 +152,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
         for line in range(linenumber):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>2d}".format(line+1) + sep
+            outstring = outstring + "{0:>4d}".format(line+1) + sep
             for col in range( 1, 50):
                 outstring = outstring + "{0:>2d}".format(left_countdata[line][1][col]) + sep
             outstring = outstring + sep
@@ -168,7 +168,7 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
         for line in range(linenumber):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>2d}".format(line+1) + sep
+            outstring = outstring + "{0:>4d}".format(line+1) + sep
             #for col in range(49, 0, -1):
             for col in range( 1, 50):
                 outstring = outstring + "{0:>2d}".format(right_countdata[line][1][col]) + sep
