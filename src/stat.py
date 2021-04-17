@@ -19,13 +19,15 @@ jump = 3
 combo_number = 4
 #### 最後輸出檔案是 left_order.txt right_order.txt left_statics.txt right_statics.txt
 #### 每次重新跑程式 並不會清空檔案內容，而是接續原本的檔案內容繼續寫入，若是不需要舊檔案內容，記得清空
+#### 檔案輸出的欄位空間定義
+sep = '  '
 #### 控制變數結束 ##############################################
 
 # 讀取資料檔案
 data = np.loadtxt(rawdatafilename, dtype='i8')
 # 最後一筆資料 index = np.size(data, 0) - 1
 watch = data[np.size(data, 0)-1]
-#print watch
+print watch
 
 # 整理 rawdata[U-1][D-1][0] 排名
 # 整理 rawdata[U-1][D-1][1] 統計
@@ -50,7 +52,7 @@ for U in range (1, jump+1):
         #print ("Sort U=", U, "D=", D, sortdata)--- ## 偵錯  ##-----------
         #print ("Sort U=", U, "D=", D-3, sortdata)
 
-        outstring = str(U) + '\t' + str(D-3) + '\t'
+        outstring = str(U) + sep + str(D-3) + '\t'
         rawdata[U-1][D-4][0] = sortdata
         rawdata[U-1][D-4][1] = a
 
@@ -110,66 +112,66 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
 
     if flag > 0:
         if flag == 1:
-            outstring = 'D_w_x_y_z\t\t'
+            outstring = 'D_w_x_y_z' + sep + sep
             for col in range(1, 50):
-                outstring = outstring + str(col) + '\t'
+                outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
             left_order_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
-            outstring = outstring + str(line+1) + '\t'
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
+            outstring = outstring + "{0:>2d}".format(line+1) + sep
             for col in range( 49):
-                outstring = outstring + str(left_countdata[line][0][col]) + '\t'
+                outstring = outstring + "{0:>2d}".format(left_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
             left_order_out_file.write(outstring)
 
         if flag == 1:
-            outstring = 'D_w_x_y_z\t\t'
+            outstring = 'D_w_x_y_z' + sep + sep
             for col in range(49, 0, -1):
-                outstring = outstring + str(col) + '\t'
+                outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
             right_order_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
-            outstring = outstring + str(line+1) + '\t'
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
+            outstring = outstring + "{0:>2d}".format(line+1) + sep
             for col in range( 49):
-                outstring = outstring + str(right_countdata[line][0][col]) + '\t'
+                outstring = outstring + "{0:>2d}".format(right_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
             right_order_out_file.write(outstring)
 
     if flag > 0:
 
         if flag == 1:
-            outstring = 'D_w_x_y_z\t\t'
+            outstring = 'D_w_x_y_z' + sep + sep
             for col in range(1, 50):
-                outstring = outstring + str(col) + '\t'
+                outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
             left_statics_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
-            outstring = outstring + str(line+1) + '\t'
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
+            outstring = outstring + "{0:>2d}".format(line+1) + sep
             for col in range( 1, 50):
-                outstring = outstring + str(left_countdata[line][1][col]) + '\t'
-            outstring = outstring + '\n'
+                outstring = outstring + "{0:>2d}".format(left_countdata[line][1][col]) + sep
+            outstring = outstring + sep
             left_statics_out_file.write(outstring)
 
         if flag == 1:
             flag = 2
-            outstring = 'D_w_x_y_z\t\t'
+            outstring = 'D_w_x_y_z' + sep + sep
             for col in range(49, 0, -1):
-                outstring = outstring + str(col) + '\t'
+                outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
             right_statics_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
-            outstring = outstring + str(line+1) + '\t'
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
+            outstring = outstring + "{0:>2d}".format(line+1) + sep
             #for col in range(49, 0, -1):
             for col in range( 1, 50):
-                outstring = outstring + str(right_countdata[line][1][col]) + '\t'
+                outstring = outstring + "{0:>2d}".format(right_countdata[line][1][col]) + sep
             outstring = outstring + '\n'
             right_statics_out_file.write(outstring)
 
