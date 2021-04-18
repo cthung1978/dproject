@@ -122,12 +122,12 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
             outstring = outstring + "{0:>4d}".format(line+1) + sep
             for col in range( 49):
-                outstring = outstring + "{0:>2d}".format(left_countdata[line][0][col]) + sep
+                outstring = outstring + "{0:<2d}".format(left_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
             left_order_out_file.write(outstring)
 
         if flag == 1:
-            outstring = 'D_w_x_y_z' + sep + sep
+            outstring = 'D_w_x_y_z' + sep + '  ID' + sep
             for col in range(49, 0, -1):
                 outstring = outstring + "{0:>2d}".format(col) + sep
             outstring = outstring + '\n'
@@ -137,41 +137,41 @@ for d in combinations([1, 2, 3, 4, 5, 6, 7], combo_number):
             outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
             outstring = outstring + "{0:>4d}".format(line+1) + sep
             for col in range( 49):
-                outstring = outstring + "{0:>2d}".format(right_countdata[line][0][col]) + sep
+                outstring = outstring + "{0:<2d}".format(right_countdata[line][0][col]) + sep
             outstring = outstring + '\n'
             right_order_out_file.write(outstring)
 
     if flag > 0:
 
         if flag == 1:
-            outstring = 'D_w_x_y_z' + sep + '  ID'  + sep
+            outstring = 'D_w_x_y_z' + '\tID'  + '\t' #首列不能對齊可以從這裡微調，自行加入空白
             for col in range(1, 50):
-                outstring = outstring + "{0:>2d}".format(col) + sep
+                outstring = outstring + str(col) + '\t'
             outstring = outstring + '\n'
             left_statics_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>4d}".format(line+1) + sep
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
+            outstring = outstring + str(line+1) + '\t'
             for col in range( 1, 50):
-                outstring = outstring + "{0:>2d}".format(left_countdata[line][1][col]) + sep
-            outstring = outstring + sep
+                outstring = outstring + str(left_countdata[line][1][col]) + '\t'
+            outstring = outstring + '\n'
             left_statics_out_file.write(outstring)
 
         if flag == 1:
             flag = 2
-            outstring = 'D_w_x_y_z' + sep + sep
+            outstring = 'D_w_x_y_z' + '\tID'  + '\t'
             for col in range(49, 0, -1):
-                outstring = outstring + "{0:>2d}".format(col) + sep
+                outstring = outstring + str(col) + '\t'
             outstring = outstring + '\n'
             right_statics_out_file.write(outstring)
 
         for line in range(linenumber):
-            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + sep
-            outstring = outstring + "{0:>4d}".format(line+1) + sep
+            outstring = 'D_' + str(target_Dw_x_y_z.n[0]) + '_' + str(target_Dw_x_y_z.n[1]) + '_' + str(target_Dw_x_y_z.n[2]) + '_' + str(target_Dw_x_y_z.n[3]) + '\t'
+            outstring = outstring + str(line+1) + '\t'
             #for col in range(49, 0, -1):
             for col in range( 1, 50):
-                outstring = outstring + "{0:>2d}".format(right_countdata[line][1][col]) + sep
+                outstring = outstring + str(right_countdata[line][1][col]) + '\t'
             outstring = outstring + '\n'
             right_statics_out_file.write(outstring)
 
