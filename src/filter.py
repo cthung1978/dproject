@@ -11,19 +11,20 @@ class distribution_structure:
 
 # 改寫原本的 D_1_2_3_4
 def Distribution(therawdata, thejump, n):
-    # dist = np.zeros(jump * 50, dtype='i8')
-    # dist = dist.reshape(jump, 50)
     dist = distribution_structure(thejump)
     for i in n:
         dist.n.append(i)
     dist.jump = thejump
-    tmpdata = np.zeros(50, dtype='i8')
     for U in range(dist.jump):
+        tmpdata = np.zeros(50, dtype='i8')
         for col in range(1, 50):
-            tmpdata[col] = therawdata[U][n[0]-1][1][col] + therawdata[U][n[1]-1][1][col] + therawdata[U][n[2]-1][1][col] + therawdata[U][n[3]-1][1][col]
+            for i in n:
+                tmpdata[col] = tmpdata[col] + therawdata[U][i-1][1][col]
         dist.distribution[U] = np.argsort(-tmpdata)
+        # print "U = ", U
+        # print tmpdata
+        # print dist.distribution[U]
     return dist
-    #print dist
 
 ### 權重函數
 def weighting_function(weight, data):
@@ -33,6 +34,7 @@ def weighting_function(weight, data):
         for num in range(1, 50):
             for r in range(1, 50):
                 if data.distribution[U][r-1] == num:
+                    # print num, r, data.distribution[U][r-1]
                     thecountdata[1][num] = thecountdata[1][num] + weight[r];
     thecountdata[0] = np.argsort(-thecountdata[1])
     return thecountdata
@@ -120,18 +122,25 @@ def load_subfilter(targetDwxyz):
         # print outputfilename
         if subfilterdata[i][3] == 1: # IO 輸出
             outputfile = open(outputfilename, mode='at')
+
+            outstring = '## \t\t'
+            for col in range(1, 50):
+                outstring = outstring + str(col) + '\t'
+            outstring = outstring + '\n'
+            outputfile.write(outstring)
+
             dumpstring = 'D'
             for j in targetDwxyz.n:
                 dumpstring = dumpstring + '_' + str(j)
             dumpstring = dumpstring + '\t'
             if subfilterdata[i][0][0] == 'L':
                 for index in range(50):
-                    dumpstring = dumpstring + str(L_dist[L_index][0][index]) + '\t'
+                    dumpstring = dumpstring + '{:.0f}'.format(L_dist[L_index][0][index]) + '\t'
                 dumpstring = dumpstring + '\n'
                 outputfile.write(dumpstring)
             if subfilterdata[i][0][0] == 'R':
                 for index in range(50):
-                    dumpstring = dumpstring + str(R_dist[R_index][0][index]) + '\t'
+                    dumpstring = dumpstring + '{:.0f}'.format(R_dist[R_index][0][index]) + '\t'
                 dumpstring = dumpstring + '\n'
                 outputfile.write(dumpstring)
             # print dumpstring
@@ -141,18 +150,25 @@ def load_subfilter(targetDwxyz):
         # print outputfilename
         if subfilterdata[i][3] == 1: # IO 輸出
             outputfile = open(outputfilename, mode='at')
+
+            outstring = '## \t\t'
+            for col in range(1, 50):
+                outstring = outstring + str(col) + '\t'
+            outstring = outstring + '\n'
+            outputfile.write(outstring)
+
             dumpstring = 'D'
             for j in targetDwxyz.n:
                 dumpstring = dumpstring + '_' + str(j)
             dumpstring = dumpstring + '\t'
             if subfilterdata[i][0][0] == 'L':
                 for index in range(50):
-                    dumpstring = dumpstring + str(L_dist[L_index][1][index]) + '\t'
+                    dumpstring = dumpstring + '{:.0f}'.format(L_dist[L_index][1][index]) + '\t'
                 dumpstring = dumpstring + '\n'
                 outputfile.write(dumpstring)
             if subfilterdata[i][0][0] == 'R':
                 for index in range(50):
-                    dumpstring = dumpstring + str(R_dist[R_index][1][index]) + '\t'
+                    dumpstring = dumpstring + '{:.0f}'.format(R_dist[R_index][1][index]) + '\t'
                 dumpstring = dumpstring + '\n'
                 outputfile.write(dumpstring)
             # print dumpstring
