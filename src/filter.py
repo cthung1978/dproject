@@ -11,20 +11,20 @@ class distribution_structure:
 
 # 改寫原本的 D_1_2_3_4
 def Distribution(therawdata, thejump, n):
+    # dist = np.zeros(jump * 50, dtype='i8')
+    # dist = dist.reshape(jump, 50)
     dist = distribution_structure(thejump)
     for i in n:
         dist.n.append(i)
     dist.jump = thejump
+    tmpdata = np.zeros(50, dtype='i8')
     for U in range(dist.jump):
-        tmpdata = np.zeros(50, dtype='i8')
         for col in range(1, 50):
             for i in n:
                 tmpdata[col] = tmpdata[col] + therawdata[U][i-1][1][col]
         dist.distribution[U] = np.argsort(-tmpdata)
-        # print "U = ", U
-        # print tmpdata
-        # print dist.distribution[U]
     return dist
+    #print dist
 
 ### 權重函數
 def weighting_function(weight, data):
@@ -34,16 +34,15 @@ def weighting_function(weight, data):
         for num in range(1, 50):
             for r in range(1, 50):
                 if data.distribution[U][r-1] == num:
-                    # print num, r, data.distribution[U][r-1]
                     thecountdata[1][num] = thecountdata[1][num] + weight[r];
     thecountdata[0] = np.argsort(-thecountdata[1])
     return thecountdata
 
 ## 代替原本的乙一 欄位改成由檔案 filter.txt 讀入 組數無上限
-def load_filter(targetDwxyz):
-    filterdata = np.loadtxt('filter.txt', comments="#", dtype='i8')
+def load_filter(targetDwxyz, filename):
+    filterdata = np.loadtxt(filename, comments="#", dtype='i8')
     linenumber = np.size(filterdata, 0)
-    print 'Total filter rules = ', linenumber
+    print 'Total filter rules of ', filename, ' = ', linenumber
     thecountdata = np.zeros(linenumber * 2 * 50)
     thecountdata = thecountdata.reshape(linenumber, 2, 50)
     for i in range(linenumber):
@@ -54,8 +53,8 @@ def load_filter(targetDwxyz):
     return thecountdata
 
 
-def load_subfilter(targetDwxyz):
-    subfilterdata = np.loadtxt('subfilter.txt', comments="#", dtype={'names':('Name', 'div', 'div2', 'IO', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49'), 'formats':('|S10', np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int)})
+def load_subfilter(targetDwxyz, filename):
+    subfilterdata = np.loadtxt(filename, comments="#", dtype={'names':('Name', 'div', 'div2', 'IO', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49'), 'formats':('|S10', np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int, np.int)})
     linenumber = np.size(subfilterdata, 0)
     # print subfilterdata
     L_index = 0
@@ -67,7 +66,7 @@ def load_subfilter(targetDwxyz):
             L_linenumber = L_linenumber + 1
         elif subfilterdata[i][0][0] == 'R':
             R_linenumber = R_linenumber + 1
-    print 'Total subfilter rules = ', linenumber, ' L-rules ', L_linenumber, ' R-rules ', R_linenumber
+    print 'Total subfilter rules from file ', filename, ' = ', linenumber, ' L-rules ', L_linenumber, ' R-rules ', R_linenumber
     L_dist =  np.zeros(L_linenumber * 2 * 50)
     R_dist =  np.zeros(R_linenumber * 2 * 50)
     L_dist = L_dist.reshape(L_linenumber, 2, 50)
